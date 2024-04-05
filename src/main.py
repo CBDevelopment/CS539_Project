@@ -12,12 +12,18 @@ NUM_EPOCHS      = 25
 ALPHA           = 0.001
 BATCH_SIZE      = 64
 
+# #####################################
+#
+# Run me with 'py main.py <train/test> <1>'
+#
+# #####################################
+
 def main():
-    # Check if the user has provided an argument (train or test) (model = [0, NUM_MODELS)])
+    # Check if the user has provided an argument (train or test) (model = [1, NUM_MODELS)])
     if len(sys.argv) != 3:
         print(f"{io.RED_TEXT}\tUsage: py main.py <mode> <model>{io.RESET_TEXT}")
         print(f"\t\t{io.CYAN_TEXT}<mode> should be 'train' or 'test'{io.RESET_TEXT}")
-        print(f"\t\t{io.MAGENTA_TEXT}<model number> should be between [1, {NUM_MODELS}]{io.RESET_TEXT}\n")
+        print(f"\t\t{io.MAGENTA_TEXT}<model number> should be between [1, {NUM_MODELS}){io.RESET_TEXT}\n")
         sys.exit(1)  # Exit the program if no argument is provided
 
     # Fetch the mode from the command line argument
