@@ -20,9 +20,6 @@ class Boston_NYC_BinaryClassifier(nn.Module):
         ## Good for I/O & Internal Data Handling
         self.model_class = f"Boston_NYC_BinaryClassifier"
 
-        ### I'll define the Sequential() class in a minute
-
-
     def forward(self, x):
 
         return x

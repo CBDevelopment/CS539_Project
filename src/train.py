@@ -16,7 +16,7 @@ BATCH_SIZE      = 64
 DATASET = "data_5drivers/*.csv"
 ########################################################
 
-class TaxiDriverDataset(Dataset):
+class ImageSet(Dataset):
     """
     Handles loading and preparing data for the model
     """
