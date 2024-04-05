@@ -3,7 +3,7 @@
 import torch
 import torch.nn as nn
 
-NUM_MODELS = 2
+NUM_MODELS = 1
 
 '''
     Initial Model architecture
