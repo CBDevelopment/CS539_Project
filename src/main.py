@@ -1,4 +1,3 @@
-# main.py
 
 import sys
 import output_constants as io 
