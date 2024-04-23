@@ -33,7 +33,7 @@ if COMMAND_LINE:
 else:
     side_length = 250
 
-    root = "D:/WPI/Junior Year/ML/cityImages/"
+    root = "D:/WPI/Junior Year/ML/CS539_Project/data/cityImages"
     batch = [
         "zurich"
     ]
