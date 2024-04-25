@@ -5,11 +5,15 @@ import pandas as pd
 from scipy.spatial import Voronoi, voronoi_plot_2d
 from tqdm import tqdm
 import math
+from sklearn.cluster import KMeans
 
 # TODO: Make sure to cite this source if using these cities
 # https://simplemaps.com/data/us-cities
 us_cities = pd.read_csv("uscities.csv")
 us_cities = us_cities.dropna()
+
+# Set seed for reproducibility
+np.random.seed(10)
 
 # Continental US Bounding Box
 north = 49.3457868
@@ -60,7 +64,7 @@ for city in gsv_included_cities:
     city_avg_lng = city_imgs['lng'].mean()
     if ((city_avg_lat > south and city_avg_lat < north) and (city_avg_lng > west and city_avg_lng < east)):
         city_centers = pd.concat([city_centers, pd.DataFrame(
-        [[city, city_avg_lat, city_avg_lng]], columns=['city', 'lat', 'lng'])])
+            [[city, city_avg_lat, city_avg_lng]], columns=['city', 'lat', 'lng'])])
         plt.scatter(city_avg_lng, city_avg_lat, s=10, c='purple')
 
 LAT_TO_MILES = 69  # 69 miles per degree of latitude
@@ -84,7 +88,8 @@ if PLOT_RADIUS:
 
             # find cities that are in a circle of radius RADIUS
             # distance between two points = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-            distance = math.sqrt((abs(center_lat - city_lat) * LAT_TO_MILES) ** 2 + (abs(center_lng - city_lng) * LNG_TO_MILES) ** 2)
+            distance = math.sqrt((abs(center_lat - city_lat) * LAT_TO_MILES)
+                                 ** 2 + (abs(center_lng - city_lng) * LNG_TO_MILES) ** 2)
 
             if distance < RADIUS:
                 cities_to_plot.append(city)
@@ -101,7 +106,8 @@ PLOT_CITIES = True
 
 if VORONOI:
     vor = Voronoi(cities_to_plot[['lng', 'lat']])
-    voronoi_plot_2d(vor, ax=ax, line_width=0.5, show_vertices=False, show_points=PLOT_CITIES, point_size=1)
+    voronoi_plot_2d(vor, ax=ax, line_width=0.5, show_vertices=False,
+                    show_points=PLOT_CITIES, point_size=1)
     ax.set_xlim(west, east)
     ax.set_ylim(south, north)
     plt.xlabel("Longitude")
