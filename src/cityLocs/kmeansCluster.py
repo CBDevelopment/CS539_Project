@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.spatial import ConvexHull
 
-# TODO: Make sure to cite this source if using these cities
-# https://simplemaps.com/data/us-cities
 us_cities = pd.read_csv("uscities.csv")
 us_cities = us_cities.dropna()
 

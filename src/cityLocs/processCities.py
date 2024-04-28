@@ -7,8 +7,6 @@ from tqdm import tqdm
 import math
 from sklearn.cluster import KMeans
 
-# TODO: Make sure to cite this source if using these cities
-# https://simplemaps.com/data/us-cities
 us_cities = pd.read_csv("uscities.csv")
 us_cities = us_cities.dropna()
 
