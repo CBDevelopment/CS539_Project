@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
 # Load the embeddings
-vectors = np.load('encoded_lat_lon.npy')
+vectors = np.load('image_embeddings.npy')
 
 # Perform PCA for dimensionality reduction
 pca = PCA(n_components=2)

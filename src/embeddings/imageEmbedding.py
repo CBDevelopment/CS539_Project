@@ -40,7 +40,9 @@ def generate_embeddings(image_paths, batch_size=32):
 
 
 # Set the path to your image directory
-GSV_IMAGE_ROOT = "D:/WPI/Junior Year/ML/CS539_Project/data/ImageLocationDataset/GSV_USCities"
+# GSV_IMAGE_ROOT = "D:/WPI/Junior Year/ML/CS539_Project/data/ImageLocationDataset/GSV_USCities"
+
+GSV_IMAGE_ROOT = "/home/cjbeck/cs539/TuringData"
 image_paths = []
 for city in os.listdir(GSV_IMAGE_ROOT):
     city_path = os.path.join(GSV_IMAGE_ROOT, city)

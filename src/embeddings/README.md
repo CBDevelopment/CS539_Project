@@ -3,6 +3,8 @@
 
 This directory is used to create embeddings to use for regression output of a location based on an input image
 
+MAKE SURE TO LOAD IN THE `image_embeddings.npy` FILE FROM THE DRIVE
+
 ### Files
 - `coordEmbedding.py`
     - Defines an autoencoder which creates encoded representations of the the existing GPS coordinates with an output dimensionality of 1x1000 to match the dimensionality of the image embeddings
