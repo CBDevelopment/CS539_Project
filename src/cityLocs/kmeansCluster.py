@@ -4,13 +4,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.spatial import ConvexHull
 
-# TODO: Make sure to cite this source if using these cities
-# https://simplemaps.com/data/us-cities
 us_cities = pd.read_csv("uscities.csv")
 us_cities = us_cities.dropna()
 
 # Set seed for reproducibility
-np.random.seed(10)
+# np.random.seed(10)
 
 # Continental US Bounding Box
 north = 49.3457868
@@ -34,13 +32,13 @@ continental_us_cities = us_cities[
 ]
 
 # Percentage of cities to plot, decimal
-PERCENT_CITIES = 0.05
+PERCENT_CITIES = 1
 continental_us_cities = continental_us_cities.sample(frac=PERCENT_CITIES)
 
 print(f"Number of Cities Total: {len(continental_us_cities)}")
 
 # Specify the number of clusters
-k = 25
+k = 15
 
 # Perform K-means clustering
 kmeans = KMeans(n_clusters=k)
