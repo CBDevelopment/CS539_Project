@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from autoencoder import Autoencoder
 import torch
+import pickle
 
 # Load image embeddings and GPS coordinates
 print("Loading data...")
@@ -61,4 +62,6 @@ plt.tight_layout()
 plt.show()
 
 # Save the model
-torch.save(model, 'regression_model.pth')
+print("Saving model")
+with open('regression_model.pkl', 'wb') as f:
+    pickle.dump(model, f)
