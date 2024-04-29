@@ -54,7 +54,7 @@ print("Loading linear regression model")
 with open('../regression_model.pkl', 'rb') as f:
     linreg = pickle.load(f)
 
-IMAGE_PATH = "D:\WPI\Junior Year\ML\CS539_Project\data\ImageLocationDataset\TuringData\Boston\Boston_0000001_2007_09_119_42.32195180265299_-71.1349467783536_k6Bs7PgCwPKNLkiPKyBx3A.jpg"
+IMAGE_PATH = "C:/Users/bugsp/Downloads/la.jpg"
 # Generate image embedding for input
 print("Generating image embedding")
 image = Image.open(IMAGE_PATH)
