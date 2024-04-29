@@ -6,13 +6,15 @@ This directory is used to create embeddings to use for regression output of a lo
 MAKE SURE TO LOAD IN THE `image_embeddings.npy` FILE FROM THE DRIVE
 
 ### Files
+- `autoencoder.py`
+    - Defines an Autoencoder class which expands GPS coordinates of shape 1x2 to 1x20 and reduces down to 1 number as an embedding
 - `coordEmbedding.py`
-    - Defines an autoencoder which creates encoded representations of the the existing GPS coordinates with an output dimensionality of 1x1000 to match the dimensionality of the image embeddings
+    - Trains and saves the autoencoder
 - `coordPrediction.py`
-    - Attempt at doing a regression on the embeddings of both GPS coordinates and images to output predicted GPS coordinates
+    - Linear Regression between image embeddings and GPS embeddings. Displays the actual and predicted results of the regression after decoding the GPS coordinates through the autoencoder
 - `imageEmbedding.py`
     - Implements the pretrained EfficientNet-b5 model from Google to create embeddings of images
-        - Takes a couple hours to run
-            - Going to try running on Turing cluster/Colab A100s
+        - Can be manipulated to run on either Turing cluster or Google Colab
+            - Cutter ran on Colab in ~40 min on 1 A100
 - `visualizeVectors.py`
     - Visualizes large dimensionality vectors in 2D space using PCA
