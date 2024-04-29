@@ -1,5 +1,3 @@
-# main.py
-
 import sys
 import output_constants as io 
 from model import NUM_MODELS

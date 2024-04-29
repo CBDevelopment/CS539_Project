@@ -1,0 +1,62 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.5em 1em;
+}
+.navbar .navbar-nav {
+  list-style-type: none;
+}
+.navbar .navbar-nav .nav-item {
+  display: inline-block;
+  margin-left: 1em;
+}
+.navbar .navbar-nav .nav-item .nav-link {
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+.navbar .navbar-nav .nav-item .nav-link:hover {
+  color: #ccc;
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.uploadContainer .fileInputContainer {
+  margin-bottom: 1em;
+}
+.uploadContainer .fileInputContainer .customFileInput {
+  display: inline-block;
+  padding: 1em 2em;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.uploadContainer .fileInputContainer .customFileInput:hover {
+  background-color: #0056b3;
+}
+.uploadContainer .fileInputContainer .customFileInput #imageUpload {
+  display: none;
+}
+.uploadContainer .fileName {
+  margin-bottom: 1em;
+}
+.uploadContainer .uploadButton {
+  padding: 8px 2em;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.uploadContainer .uploadButton:hover {
+  background-color: #0056b3;
+}/*# sourceMappingURL=componentStyles.css.map */
