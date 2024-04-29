@@ -6,7 +6,6 @@ import os
 
 DATA_ROOT = "D:/WPI/Junior Year/ML/CS539_Project/data/cityImages"
 
-
 class CityImageSet(Dataset):
     """
     - Collections of images from 6 cities: Boston, Amsterdam, Paris, Phoenix, Toronto, Zurich
