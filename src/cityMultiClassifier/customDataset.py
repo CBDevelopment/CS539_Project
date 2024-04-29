@@ -4,8 +4,7 @@ from skimage import io
 from torch.utils.data import Dataset
 import os
 
-DATA_ROOT = "D:/WPI/Junior Year/ML/cityImages"
-
+DATA_ROOT = "D:/WPI/Junior Year/ML/CS539_Project/data/cityImages"
 
 class CityImageSet(Dataset):
     """
