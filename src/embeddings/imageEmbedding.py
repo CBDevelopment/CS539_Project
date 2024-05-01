@@ -19,39 +19,43 @@ def generate_embeddings(image_paths, batch_size=32):
     embeddings = []
     num_batches = len(image_paths) // batch_size + 1
 
-    for i in tqdm(range(0, num_batches)):  # Process batches one by one
-        start_idx = i * batch_size
-        end_idx = min((i + 1) * batch_size, len(image_paths))
-        batch_paths = image_paths[start_idx:end_idx]
-        # Load images using PIL
-        batch_images = [Image.open(path) for path in batch_paths]
+    for i in tqdm(range(0, num_batches, torch.cuda.device_count())):  # Process multiple batches simultaneously
+        batch_paths = image_paths[i * batch_size: (i + torch.cuda.device_count()) * batch_size]
+        batch_images = [Image.open(path) for path in batch_paths]  # Load images using PIL
+        batch_filenames = np.array([os.path.basename(path) for path in batch_paths])  # Extract filenames
+
         batch_inputs = processor(batch_images, return_tensors="pt")
 
-        # Move inputs to GPU
-        batch_inputs = {k: v.to(device) for k, v in batch_inputs.items()}
+        batch_inputs = {k: v.to(device) for k, v in batch_inputs.items()}  # Move inputs to GPU
 
         with torch.no_grad():
             outputs = model(**batch_inputs)
             logits = outputs.logits
-            # Extract logits and convert to numpy array
-            embeddings.extend(logits.cpu().numpy())
+            batch_embeddings = logits.cpu().numpy()  # Extract logits and convert to numpy array
 
-    return np.array(embeddings)
+            # Combine filenames with embeddings
+            for filename, embedding in zip(batch_filenames, batch_embeddings):
+                embedding = embedding.reshape(-1)
+                embeddings.append([filename, embedding.tolist()])
+    
+    embeddings_array = np.array(embeddings, dtype=object)
+
+    return embeddings_array
 
 
 # Set the path to your image directory
 # GSV_IMAGE_ROOT = "D:/WPI/Junior Year/ML/CS539_Project/data/ImageLocationDataset/GSV_USCities"
 
-GSV_IMAGE_ROOT = "/home/cjbeck/cs539/TuringData"
-image_paths = []
-for city in os.listdir(GSV_IMAGE_ROOT):
+GSV_IMAGE_ROOT = "D:\WPI\Junior Year\ML\CS539_Project\data\ImageLocationDataset\TuringData"
+
+# for city in os.listdir(GSV_IMAGE_ROOT):
+for city in ["Chicago", "Minneapolis", "WashingtonDC"]:
+    print(city)
     city_path = os.path.join(GSV_IMAGE_ROOT, city)
+    image_paths = []
     for image in os.listdir(city_path):
         image_paths.append(os.path.join(city_path, image))
 
-# Example usage
-image_embeddings = generate_embeddings(image_paths)
-print(image_embeddings.shape)
+    image_embeddings = generate_embeddings(image_paths)
 
-# Save embeddings to a file
-np.save('image_embeddings.npy', image_embeddings)
+    np.save(f'imageEmbeddings/{city}_embeddings.npy', image_embeddings)

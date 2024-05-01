@@ -18,6 +18,8 @@ X_train, X_val, y_train, y_val = train_test_split(image_embeddings, encoded_coor
 # normalize all data to be between 0 and 1
 scaler = MinMaxScaler()
 scaler.fit(y_train)
+# save the scaler for later use
+torch.save(scaler, 'nn_scaler.pth')
 
 # build neural net
 class GPSPredictor(nn.Module):
@@ -50,7 +52,8 @@ model.to(device)
 X_train_tensor = torch.tensor(X_train, dtype=torch.float32).to(device)
 y_train_tensor = torch.tensor(scaler.transform(y_train), dtype=torch.float32).to(device)
 
-num_epochs = 100
+num_epochs = 300
+losses = []
 for epoch in range(num_epochs):
     model.train()
     optimizer.zero_grad()
@@ -58,6 +61,8 @@ for epoch in range(num_epochs):
     loss = criterion(outputs, y_train_tensor)
     loss.backward()
     optimizer.step()
+
+    losses.append(loss.item())
 
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
 
@@ -92,19 +97,25 @@ actual_gps = decode_gps(y_val)
 
 # Plot the predicted and actual GPS coordinates on 2 axes side by side
 plt.figure(figsize=(12, 6))
-plt.subplot(1, 2, 1)
+plt.subplot(1, 3, 1)
 plt.scatter(actual_gps[:, 1], actual_gps[:, 0], label='Actual GPS Coordinates')
 plt.ylabel('Latitude')
 plt.xlabel('Longitude')
 plt.title('Actual GPS Coordinates')
 plt.legend()
 
-plt.subplot(1, 2, 2)
+plt.subplot(1, 3, 2)
 plt.scatter(predicted_gps[:, 1], predicted_gps[:, 0], label='Predicted GPS Coordinates')
 plt.ylabel('Latitude')
 plt.xlabel('Longitude')
 plt.title('Predicted GPS Coordinates')
 plt.legend()
+
+plt.subplot(1, 3, 3)
+plt.plot(losses)
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.title('Training Loss')
 
 plt.tight_layout()
 plt.show()
