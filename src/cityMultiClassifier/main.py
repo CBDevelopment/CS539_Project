@@ -111,7 +111,8 @@ for epoch in range(EPOCHS):
     print(
         f"Test Loss: {test_loss[-1]:.4f}, Test Accuracy: {test_accuracy[-1]:.4f}")
 
-    torch.save(model.state_dict(), f"cityMultiClassifier_Epoch{epoch}.pth")
+    if epoch % 10 == 0:
+        torch.save(model.state_dict(), f"models/cityMultiClassifier_Epoch{epoch}.pth")
 
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
